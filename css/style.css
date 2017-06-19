@@ -48,7 +48,7 @@ button {
 .set-time {
 	display: inline-flex;
 	margin: 30px 0 0 0;
-	font-size: 90%;
+	font-size: 100%;
 }
 
 .work-length,
@@ -57,17 +57,12 @@ button {
 }
 
 i {
-	font-size: 20px;
+	font-size: 18px;
 	padding: 0 5px;
+	color: #c4c4c4;
 }
 
-.minus {
-	color: #e31e1e;
-}
 
-.plus {
-	color: #01b001;
-}
 
 .clock-circle {
 	margin: 50px auto;
