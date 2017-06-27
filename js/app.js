@@ -9,9 +9,7 @@ var breakTime;
 
 document.querySelector(".work-minus").addEventListener("click", function(){
 
-	if (isCounting) {
-		return;
-	} else if (initialWork > 1){
+ if (!isCounting && initialWork > 1){
     initialWork--
 		setWork.textContent = initialWork;
     counter.textContent = initialWork;
@@ -20,20 +18,16 @@ document.querySelector(".work-minus").addEventListener("click", function(){
 
 document.querySelector(".work-plus").addEventListener("click", function(){
   
-	if (isCounting) {
-		return;
-	} else {
-  initialWork++;
-  setWork.textContent = initialWork;
-  counter.textContent = initialWork;
+	if (!isCounting) {
+	  initialWork++;
+	  setWork.textContent = initialWork;
+	  counter.textContent = initialWork;
   }
 });
 
 document.querySelector(".break-minus").addEventListener("click", function(){
 
-	if (isCounting) {
-		return;
-	} else if (initialBreak > 1){
+ 	if (!isCounting && initialBreak > 1){
     initialBreak--
     setBreak.textContent = initialBreak;
   } 
@@ -41,9 +35,7 @@ document.querySelector(".break-minus").addEventListener("click", function(){
 
 document.querySelector(".break-plus").addEventListener("click", function(){
 
-  if (isCounting) {
-		return;
-	} else {
+  if (!isCounting) {
     initialBreak++;
     setBreak.textContent = initialBreak;
   }
