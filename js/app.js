@@ -77,12 +77,10 @@ function workSession(minutes) {
     counter.textContent = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
     
     if(seconds >= 0) {
-      setTimeout(workTick, 1000);  
+      workTime = setTimeout(workTick, 1000);  
         
-    } else {
-      if(mins >= 1){
-        workSession(mins-1);           
-      }
+    } else if(mins >= 1){
+      workSession(mins-1);           
     }
     
     if (counter.textContent === "0:00"){
