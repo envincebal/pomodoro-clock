@@ -105,7 +105,7 @@ function breakSession(minutes) {
     clock.style.backgroundColor = "#0daa32";
     status.textContent = "Break";
     seconds--;
-    counter.textContent = current_minutes.toString() + ":" + (seconds < 10 ? "00" : "") + String(seconds);
+    counter.textContent = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
 
     if (seconds >= 0) {
       breakTime = setTimeout(breakTick, 1000);
