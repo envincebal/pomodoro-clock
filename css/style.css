@@ -1,108 +1,126 @@
 * {
-  margin: 0;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 html,
 body {
-  font-family: "Montserrat", sans-serif;
-  font-size: 20px;
-  background-color: #06032a;
-  color: #e3e3e3;
-  text-align: center;
+	font-family: Arial, sans-serif;
+	font-size: 20px;
+	background-color: #06032a;
+	color: #e3e3e3;
+	text-align: center;
 }
 
 .container,
-.circle-wrapper,
+.clock-wrapper,
 .reset-wrapper {
-  width: 1140px;
-  margin: 0 auto;
+	max-width: 1140px;
+	margin: 0 auto;
 }
 
 header {
-  margin: 50px 0 0 0;
-  text-transform: uppercase;
+	margin: 50px 0 0 0;
+
 }
 
 h1,
 h3 {
-  font-weight: 400;
-  letter-spacing: 1px
+	font-weight: 400;
+	letter-spacing: 1px
 }
 
 h1 {
-  font-size: 225%;
+	font-size: 300%;
 }
 
 h3 {
-  font-size: 100%;
-  margin: 0 0 10px 0;
+	font-size: 150%;
+	margin: 0 0 10px 0;
 }
 
 button {
-  background-color: #06032a;
-  border: none;
-  cursor: pointer;
+	background-color: #06032a;
+	border: none;
+	cursor: pointer;
 }
 
 button:focus {
-  outline: none;
+	outline: none;
 }
 
 .set-time {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  margin: 30px 0 0 0;
-  font-size: 100%;
+	display: -webkit-inline-box;
+	display: -ms-inline-flexbox;
+	display: inline-flex;
+	margin: 30px 0 0 0;
 }
 
 .work-length,
 .break-length {
-  padding: 0 30px;
+	padding: 0 30px;
+}
+
+.work-time,
+.break-time {
+	font-size: 150%;
 }
 
 i {
-  font-size: 18px;
-  padding: 0 5px;
-  color: #5a5ad7;
+	padding: 0 10px;
+	color: #4678ff;
 }
 
 i:hover {
-  color: #cd5408;
+	color: #b7b7f0;
 }
 
-.clock-circle {
-  margin: 50px auto 20px auto;
-  width: 300px;
-  height: 300px;
-  border: 3px solid #4678ff;
-  border-radius: 150px;
-  cursor: pointer;
-  font-weight: 700;
-  letter-spacing: 2px;
+.clock-wrapper {
+	margin: 50px auto 20px auto;
+	width: 500px;
+	height: 250px;
+	border: 10px solid #0f3396;
+	border-radius: 10px;
+	letter-spacing: 2px;
 }
 
-.clock-circle h1 {
-  font-weight: 700;
-  letter-spacing: 2px;
+.clock-content h1 {
+	letter-spacing: 2px;
+}
+
+.clock-content {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
 }
 
 .status {
-  margin: 85px 0 0 0;
+	font-size: 300%;
+	font-weight: 700;
+	color: #f43a3a;
+		text-transform: uppercase;
 }
 
-.reset-circle {
-  margin: 20px auto;
-  width: 100px;
-  height: 100px;
-  border: 3px solid #ad15cf;
-  border-radius: 50px;
-  cursor: pointer;
+.timer {
+	font-family: "Orbitron", sans-serif;
+	font-size: 500%;
 }
 
-.reset-circle h3 {
-  margin: 20px 0 0 0;
+.buttons-wrapper {
+	margin: 20px auto;
+}
+
+.ion-chevron-down,
+.ion-chevron-up {
+	font-size: 30px;
+}
+
+.play-button,
+.pause-button,
+.reset-button {
+	font-size: 400%;
+	margin: 0 10px;
 }

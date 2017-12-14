@@ -1,123 +1,143 @@
-var initialWork = 25;
-var initialBreak = 5;
-var setWork = document.querySelector(".work-time");
-var setBreak = document.querySelector(".break-time");
-var counter = document.querySelector(".timer");
-var isCounting = false;
-var workTime;
-var breakTime;
+(function () {
+	const setWork = document.querySelector(".work-time");
+	const setBreak = document.querySelector(".break-time");
+	const minutes = document.querySelector(".minute");
+	const seconds = document.querySelector(".seconds");
+	let initialWork = 25;
+	let initialBreak = 5;
+	let isCounting = false;
+	let workTick;
+	let breakTick;
 
-document.querySelector(".work-minus").addEventListener("click", function () {
+	timerHandlers();
 
-  if (!isCounting && initialWork > 1) {
-    initialWork--
-    setWork.textContent = initialWork;
-    counter.textContent = initialWork;
-  }
-});
+	function timerHandlers() {
+		const setTimer = document.getElementsByClassName("set-timer");
 
-document.querySelector(".work-plus").addEventListener("click", function () {
+		for (let i = 0; i < setTimer.length; i++) {
+			setTimer[i].addEventListener("click", function (e) {
+				const workMinus = e.target.classList.contains("work-minus");
+				const workPlus = e.target.classList.contains("work-plus");
+				const breakMinus = e.target.classList.contains("break-minus");
+				const breakPlus = e.target.classList.contains("break-plus");
 
-  if (!isCounting) {
-    initialWork++;
-    setWork.textContent = initialWork;
-    counter.textContent = initialWork;
-  }
-});
+				if (workMinus && !isCounting && initialWork > 1) {
+					initialWork--
+					setWork.textContent = initialWork;
+					minutes.textContent = initialWork;
+				} else if (workPlus && !isCounting) {
+					initialWork++;
+					setWork.textContent = initialWork;
+					minutes.textContent = initialWork;
+				} else if (breakMinus && !isCounting && initialBreak > 1) {
+					initialBreak--
+					setBreak.textContent = initialBreak;
+				} else if (breakPlus && !isCounting) {
+					initialBreak++;
+					setBreak.textContent = initialBreak;
+				}
 
-document.querySelector(".break-minus").addEventListener("click", function () {
+			})
+		}
+	}
 
-  if (!isCounting && initialBreak > 1) {
-    initialBreak--
-    setBreak.textContent = initialBreak;
-  }
-});
+	function workCountdown(minute, second) {
+		let mins = minute;
+		let secs = second;
+		const status = document.querySelector(".status");
+		const chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
 
-document.querySelector(".break-plus").addEventListener("click", function () {
+		workTick = setInterval(function () {
 
-  if (!isCounting) {
-    initialBreak++;
-    setBreak.textContent = initialBreak;
-  }
-});
+			status.style.color = "#f43a3a";
+			status.textContent = "Work";
 
-document.querySelector(".clock-circle").addEventListener("click", function () {
+			if (secs <= 0) {
+				secs = 59;
+				seconds.textContent = secs;
 
-  if (!isCounting) {
-    workSession(counter.textContent);
-    isCounting = true;
-  }
-});
+			} else {
+				secs--;
+				seconds.textContent = (secs < 10) ? "0" + secs : secs;
+			}
 
-document.querySelector(".reset-circle").addEventListener("click", function () {
-  document.querySelector(".status").textContent = "Session";
-  document.querySelector(".clock-circle").style.backgroundColor = "#06032a";
-  setWork.textContent = initialWork;
-  counter.textContent = initialWork;
-  setBreak.textContent = initialBreak;
-  isCounting = false;
-  clearTimeout(workTime);
-  clearTimeout(breakTime);
-});
+			if (secs === 59) {
+				mins--;
+				minutes.textContent = mins;
 
-function workSession(minutes) {
-  var seconds = 60;
-  var mins = minutes;
-  var status = document.querySelector(".status");
-  var clock = document.querySelector(".clock-circle");
-  var chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
+			}
 
-  function workTick() {
+			if (minutes.textContent === "0" && seconds.textContent === "00") {
+				clearInterval(workTick);
+				chime.play();
+				breakCountdown(setBreak.textContent, seconds.textContent);
+			}
+		}, 1000);
+	}
 
-    var current_minutes = mins - 1;
+	function breakCountdown(minute, second) {
+		let mins = minute;
+		let secs = second;
+		const status = document.querySelector(".status");
+		const rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
 
-    clock.style.backgroundColor = "#f43a3a";
-    status.textContent = "Session";
-    seconds--;
-    counter.textContent = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+		breakTick = setInterval(function () {
 
-    if (seconds >= 0) {
-      workTime = setTimeout(workTick, 1000);
 
-    } else if (mins >= 1) {
-      workSession(mins - 1);
-    }
+			status.style.color = "#0daa32";
+			status.textContent = "Break";
 
-    if (counter.textContent === "0:00") {
-      chime.play();
-      counter.textContent = initialBreak;
-      breakSession(counter.textContent);
-    }
-  }
-  workTick();
-}
 
-function breakSession(minutes) {
-  var seconds = 60;
-  var mins = minutes;
-  var status = document.querySelector(".status");
-  var clock = document.querySelector(".clock-circle");
-  var rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
+			if (secs <= 0) {
+				secs = 59;
+				seconds.textContent = secs;
 
-  function breakTick() {
-    var current_minutes = mins - 1;
+			} else {
+				secs--;
+				seconds.textContent = (secs < 10) ? "0" + secs : secs;
+			}
 
-    clock.style.backgroundColor = "#0daa32";
-    status.textContent = "Break";
-    seconds--;
-    counter.textContent = current_minutes.toString() + ":" + (seconds < 10 ? "0" : "") + String(seconds);
+			if (secs === 59) {
+				mins--;
+				minutes.textContent = mins;
 
-    if (seconds >= 0) {
-      breakTime = setTimeout(breakTick, 1000);
-    } else if (mins > 1) {
-      breakSession(mins - 1);
-    }
+			}
 
-    if (counter.textContent === "0:00") {
-      rooster.play();
-      counter.textContent = initialWork;
-      workSession(counter.textContent);
-    }
-  }
-  breakTick();
-}
+			if (minutes.textContent === "0" && seconds.textContent === "00") {
+				clearInterval(breakTick);
+				rooster.play();
+				workCountdown(setWork.textContent, seconds.textContent);
+			}
+		}, 1000);
+
+	}
+
+	document.querySelector(".play-button").addEventListener("click", function () {
+		const status = document.querySelector(".status");
+
+		if (!isCounting && status.textContent === "Work") {
+			workCountdown(minutes.textContent, seconds.textContent);
+		} else if (!isCounting && status.textContent === "Break") {
+			breakCountdown(minutes.textContent, seconds.textContent);
+		}
+
+		isCounting = true;
+
+	});
+
+	document.querySelector(".pause-button").addEventListener("click", function () {
+		clearInterval(workTick);
+		clearInterval(breakTick);
+		isCounting = false;
+	});
+
+	document.querySelector(".reset-button").addEventListener("click", function () {
+		clearInterval(workTick);
+		clearInterval(breakTick);
+		minutes.textContent = initialWork;
+		seconds.textContent = "00";
+		setWork.textContent = initialWork;
+		setBreak.textContent = initialBreak;
+		isCounting = false;
+	});
+})();
