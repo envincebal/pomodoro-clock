@@ -1,6 +1,7 @@
 (function () {
 	const setWork = document.querySelector(".work-time");
 	const setBreak = document.querySelector(".break-time");
+	const status = document.querySelector(".status");
 	const minutes = document.querySelector(".minute");
 	const seconds = document.querySelector(".seconds");
 	let initialWork = 25;
@@ -44,7 +45,6 @@
 	function workCountdown(minute, second) {
 		let mins = minute;
 		let secs = second;
-		const status = document.querySelector(".status");
 		const chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
 
 		workTick = setInterval(function () {
@@ -78,7 +78,6 @@
 	function breakCountdown(minute, second) {
 		let mins = minute;
 		let secs = second;
-		const status = document.querySelector(".status");
 		const rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
 
 		breakTick = setInterval(function () {
@@ -113,7 +112,6 @@
 	}
 
 	document.querySelector(".play-button").addEventListener("click", function () {
-		const status = document.querySelector(".status");
 
 		if (!isCounting && status.textContent === "Work") {
 			workCountdown(minutes.textContent, seconds.textContent);
@@ -128,7 +126,9 @@
 	document.querySelector(".pause-button").addEventListener("click", function () {
 		clearInterval(workTick);
 		clearInterval(breakTick);
+
 		isCounting = false;
+
 	});
 
 	document.querySelector(".reset-button").addEventListener("click", function () {

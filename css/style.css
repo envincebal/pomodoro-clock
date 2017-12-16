@@ -5,7 +5,6 @@
 	box-sizing: border-box;
 }
 
-html,
 body {
 	font-family: Arial, sans-serif;
 	font-size: 20px;
@@ -14,16 +13,13 @@ body {
 	text-align: center;
 }
 
-.container,
-.clock-wrapper,
-.reset-wrapper {
+.container {
 	max-width: 1140px;
 	margin: 0 auto;
 }
 
 header {
-	margin: 50px 0 0 0;
-
+	margin: 30px 0 0 0;
 }
 
 h1,
@@ -45,6 +41,7 @@ button {
 	background-color: #06032a;
 	border: none;
 	cursor: pointer;
+
 }
 
 button:focus {
@@ -60,7 +57,7 @@ button:focus {
 
 .work-length,
 .break-length {
-	padding: 0 30px;
+	margin: 0 30px;
 }
 
 .work-time,
@@ -78,11 +75,7 @@ i:hover {
 }
 
 .clock-wrapper {
-	margin: 50px auto 20px auto;
-	width: 500px;
-	height: 250px;
-	border: 10px solid #0f3396;
-	border-radius: 10px;
+	width: 100%;
 	letter-spacing: 2px;
 }
 
@@ -91,31 +84,29 @@ i:hover {
 }
 
 .clock-content {
-	position: relative;
-	top: 50%;
-	-webkit-transform: translateY(-50%);
-	transform: translateY(-50%);
+	margin: 30px auto 30px auto;
+	padding: 10px 0;
+	border: 10px solid #0f3396;
+	max-width: 400px;
+	border-radius: 10px;
 }
 
 .status {
 	font-size: 300%;
 	font-weight: 700;
 	color: #f43a3a;
-		text-transform: uppercase;
+	text-transform: uppercase;
 }
 
 .timer {
 	font-family: "Orbitron", sans-serif;
-	font-size: 500%;
-}
-
-.buttons-wrapper {
-	margin: 20px auto;
+	font-size: 400%;
 }
 
 .ion-chevron-down,
 .ion-chevron-up {
 	font-size: 30px;
+
 }
 
 .play-button,
@@ -123,4 +114,38 @@ i:hover {
 .reset-button {
 	font-size: 400%;
 	margin: 0 10px;
+}
+
+@media (max-width: 460px) {
+	h1 {
+		font-size: 200%;
+	}
+
+	h3 {
+		font-size: 125%;
+	}
+
+	.work-time,
+	.break-time {
+		font-size: 125%;
+	}
+
+	.work-length,
+	.break-length {
+		margin: 0 10px;
+	}
+
+	.status {
+		font-size: 200%;
+	}
+
+	.timer {
+		font-size: 300%;
+	}
+
+	.play-button,
+	.pause-button,
+	.reset-button {
+		font-size: 350%;
+	}
 }
