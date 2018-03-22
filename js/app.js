@@ -1,154 +1,141 @@
 (function () {
-	const setWork = document.querySelector(".work-time"); // Selects work time element
-	const setBreak = document.querySelector(".break-time"); // Selects work time element
-	const status = document.querySelector(".status"); // Selects status element
-	const minutes = document.querySelector(".minute"); // Selects minute element
-	const seconds = document.querySelector(".seconds"); // Selects  second element
-	let initialWork = 25; // Sets initial work minutes
-	let initialBreak = 5; // Sets initial break minutes
-	let isCounting = false;
-	let workTick; // Declares setInterval for work countdown
-	let breakTick; // Declares setInterval for break countdown
+  const setWork = document.querySelector(".work-time"); // Selects work time element
+  const setBreak = document.querySelector(".break-time"); // Selects work time element
+  const status = document.querySelector(".status"); // Selects status element
+  const minutes = document.querySelector(".minute"); // Selects minute element
+  const seconds = document.querySelector(".seconds"); // Selects  second element
+  let initialWork = 25; // Sets initial work minutes
+  let initialBreak = 5; // Sets initial break minutes
+  let isCounting = false;
+  let workTick; // Declares setInterval for work countdown
+  let breakTick; // Declares setInterval for break countdown
 
-	setEventListeners();
+  // This event listener decrements work time by 1
+  document.querySelector(".work-minus").addEventListener("click", function () {
+    if (!isCounting && initialWork > 1) {
+      initialWork--
+      setWork.textContent = initialWork;
+      minutes.textContent = initialWork;
+    }
+  })
 
-	// Initializes event listeners
-	function setEventListeners() {
-		const setTimer = document.getElementsByClassName("set-timer");
+  // This event listener increments work time by 1
+  document.querySelector(".work-plus").addEventListener("click", function () {
+    if (!isCounting) {
+      initialWork++;
+      setWork.textContent = initialWork;
+      minutes.textContent = initialWork;
+    }
+  });
 
-		// Loops through minus and plus event listeners for work and break
-		for (let i = 0; i < setTimer.length; i++) {
-			setTimer[i].addEventListener("click", function (e) {
-				const workMinus = e.target.classList.contains("work-minus");
-				const workPlus = e.target.classList.contains("work-plus");
-				const breakMinus = e.target.classList.contains("break-minus");
-				const breakPlus = e.target.classList.contains("break-plus");
+  // This event listener decrements break time by 1
+  document.querySelector(".break-minus").addEventListener("click", function () {
+    if (!isCounting && initialBreak > 1) {
+      initialBreak--
+      setBreak.textContent = initialBreak;
+    }
+  });
 
-				if (workMinus && !isCounting && initialWork > 1) {
-					initialWork--
-					setWork.textContent = initialWork;
-					minutes.textContent = initialWork;
-				} else if (workPlus && !isCounting) {
-					initialWork++;
-					setWork.textContent = initialWork;
-					minutes.textContent = initialWork;
-				} else if (breakMinus && !isCounting && initialBreak > 1) {
-					initialBreak--
-					setBreak.textContent = initialBreak;
-				} else if (breakPlus && !isCounting) {
-					initialBreak++;
-					setBreak.textContent = initialBreak;
-				}
+  // This event listener increments break time by 1
+  document.querySelector(".break-plus").addEventListener("click", function () {
+    if (!isCounting) {
+      initialBreak++;
+      setBreak.textContent = initialBreak;
+    }
+  });
 
-			})
-		}
+  // Start button event listener
+  document.querySelector(".play-button").addEventListener("click", function () {
+    // Starts or restart break or work countdown and changes isCounting status
+    if (!isCounting && status.textContent === "Work") {
+      workCountdown(minutes.textContent, seconds.textContent);
+    } else if (!isCounting && status.textContent === "Break") {
+      breakCountdown(minutes.textContent, seconds.textContent);
+    }
+    isCounting = true;
+  });
 
-		// Start button event listener
-		document.querySelector(".start-button").addEventListener("click", start);
-		// Pause button event listener
-		document.querySelector(".pause-button").addEventListener("click", pause);
-		// Reset button event listener
-		document.querySelector(".reset-button").addEventListener("click", reset);
-	}
+  // Pause button event listener
+  document.querySelector(".pause-button").addEventListener("click", function () {
+    // Stops work or break countdown and changes isCounting status
+    clearInterval(workTick);
+    clearInterval(breakTick);
+    isCounting = false;
+  });
 
-	// Start button functionality
-	function start() {
+  // Reset button event listener
+  document.querySelector(".reset-button").addEventListener("click", function () {
+    // Stops work or break countdown, resets initial values and changes isCounting status
+    clearInterval(workTick);
+    clearInterval(breakTick);
+    minutes.textContent = initialWork;
+    seconds.textContent = "00";
+    setWork.textContent = initialWork;
+    setBreak.textContent = initialBreak;
+    isCounting = false;
+  });
 
-		// Starts or restart break or work countdown and changes isCounting status
-		if (!isCounting && status.textContent === "Work") {
-			workCountdown(minutes.textContent, seconds.textContent);
-		} else if (!isCounting && status.textContent === "Break") {
-			breakCountdown(minutes.textContent, seconds.textContent);
-		}
+  // Work countdown
+  const workCountdown = (minute, second) => {
+    let mins = minute;
+    let secs = second;
+    const chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
 
-		isCounting = true;
-	}
+    workTick = setInterval(function () {
+      // When countdown begins the status changes
+      status.style.color = "#f43a3a";
+      status.textContent = "Work";
 
-	// Pause button functionality
-	function pause() {
+      if (secs <= 0) {
+        secs = 59;
+        seconds.textContent = secs;
+      } else {
+        secs--;
+        seconds.textContent = (secs < 10) ? "0" + secs : secs;
+      }
 
-		// Stops work or break countdown and changes isCounting status
-		clearInterval(workTick);
-		clearInterval(breakTick);
-		isCounting = false;
+      if (secs === 59) {
+        mins--;
+        minutes.textContent = mins;
+      }
+      // Work alarm goes off and switches to break countdown
+      if (minutes.textContent === "0" && seconds.textContent === "00") {
+        clearInterval(workTick);
+        chime.play();
+        breakCountdown(setBreak.textContent, seconds.textContent);
+      }
+    }, 1000);
+  }
 
-	}
+  // Break countdown
+  const breakCountdown = (minute, second) => {
+    let mins = minute;
+    let secs = second;
+    const rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
 
-	// Reset button functionality
-	function reset() {
+    breakTick = setInterval(function () {
+      // When countdown begins the status changes
+      status.style.color = "#0daa32";
+      status.textContent = "Break";
 
-		// Stops work or break countdown, resets initial values and changes isCounting status
-		clearInterval(workTick);
-		clearInterval(breakTick);
-		minutes.textContent = initialWork;
-		seconds.textContent = "00";
-		setWork.textContent = initialWork;
-		setBreak.textContent = initialBreak;
-		isCounting = false;
-	}
+      if (secs <= 0) {
+        secs = 59;
+        seconds.textContent = secs;
+      } else {
+        secs--;
+        seconds.textContent = (secs < 10) ? "0" + secs : secs;
+      }
 
-	// Work countdown
-	function workCountdown(minute, second) {
-		let mins = minute;
-		let secs = second;
-		const chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
-
-		workTick = setInterval(function () {
-			// When countdown begins the status changes
-			status.style.color = "#f43a3a";
-			status.textContent = "Work";
-
-			if (secs <= 0) {
-				secs = 59;
-				seconds.textContent = secs;
-			} else {
-				secs--;
-				seconds.textContent = (secs < 10) ? "0" + secs : secs;
-			}
-
-			if (secs === 59) {
-				mins--;
-				minutes.textContent = mins;
-			}
-			// Work alarm goes off and switches to break countdown
-			if (minutes.textContent === "0" && seconds.textContent === "00") {
-				clearInterval(workTick);
-				chime.play();
-				breakCountdown(setBreak.textContent, seconds.textContent);
-			}
-		}, 1000);
-	}
-
-	// Break countdown
-	function breakCountdown(minute, second) {
-		let mins = minute;
-		let secs = second;
-		const rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
-
-		breakTick = setInterval(function () {
-			// When countdown begins the status changes
-			status.style.color = "#0daa32";
-			status.textContent = "Break";
-
-			if (secs <= 0) {
-				secs = 59;
-				seconds.textContent = secs;
-			} else {
-				secs--;
-				seconds.textContent = (secs < 10) ? "0" + secs : secs;
-			}
-
-			if (secs === 59) {
-				mins--;
-				minutes.textContent = mins;
-			}
-			// Break alarm goes off and switches to work countdown
-			if (minutes.textContent === "0" && seconds.textContent === "00") {
-				clearInterval(breakTick);
-				rooster.play();
-				workCountdown(setWork.textContent, seconds.textContent);
-			}
-		}, 1000);
-	}
-
+      if (secs === 59) {
+        mins--;
+        minutes.textContent = mins;
+      }
+      // Break alarm goes off and switches to work countdown
+      if (minutes.textContent === "0" && seconds.textContent === "00") {
+        clearInterval(breakTick);
+        rooster.play();
+        workCountdown(setWork.textContent, seconds.textContent);
+      }
+    }, 1000);
+  }
 })();
