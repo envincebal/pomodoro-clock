@@ -68,6 +68,8 @@ button:focus {
 i {
 	padding: 0 10px;
 	color: #4678ff;
+	cursor: pointer;
+	background-color: #06032a;
 }
 
 i:hover {

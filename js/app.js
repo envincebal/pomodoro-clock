@@ -10,39 +10,29 @@
   let workTick; // Declares setInterval for work countdown
   let breakTick; // Declares setInterval for break countdown
 
-  // This event listener decrements work time by 1
-  document.querySelector(".work-minus").addEventListener("click", function () {
-    if (!isCounting && initialWork > 1) {
+  // This event listener increments or decrements work and break minutes
+  document.querySelector(".set-time").addEventListener("click", function (e) {
+    const workMinus = e.target.classList.contains("work-minus");
+    const workPlus = e.target.classList.contains("work-plus");
+    const breakMinus = e.target.classList.contains("break-minus");
+    const breakPlus = e.target.classList.contains("break-plus");
+
+    if (workMinus && !isCounting && initialWork > 1) {
       initialWork--
       setWork.textContent = initialWork;
       minutes.textContent = initialWork;
-    }
-  })
-
-  // This event listener increments work time by 1
-  document.querySelector(".work-plus").addEventListener("click", function () {
-    if (!isCounting) {
+    }else if (workPlus && !isCounting) {
       initialWork++;
       setWork.textContent = initialWork;
       minutes.textContent = initialWork;
-    }
-  });
-
-  // This event listener decrements break time by 1
-  document.querySelector(".break-minus").addEventListener("click", function () {
-    if (!isCounting && initialBreak > 1) {
+    }else if (breakMinus && !isCounting && initialBreak > 1) {
       initialBreak--
       setBreak.textContent = initialBreak;
-    }
-  });
-
-  // This event listener increments break time by 1
-  document.querySelector(".break-plus").addEventListener("click", function () {
-    if (!isCounting) {
+    }else if (breakPlus && !isCounting) {
       initialBreak++;
       setBreak.textContent = initialBreak;
     }
-  });
+  })
 
   // Start button event listener
   document.querySelector(".play-button").addEventListener("click", function () {
