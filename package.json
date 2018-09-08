@@ -1,0 +1,29 @@
+{
+  "name": "pomodoro-clock",
+  "version": "1.0.0",
+  "description": "Want to stop procrastinating and improve productivity? Then this app is for you. You can set a fixed work timer and break timer. When the work timer runs out, it will automatically switch to the break timer. This process will keep switching until you stop it.",
+  "main": "webpack.config.js",
+  "scripts": {
+    "dev-server": "webpack-dev-server --mode development",
+    "build": "webpack --mode production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/envincebal/pomodoro-clock.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/envincebal/pomodoro-clock/issues"
+  },
+  "homepage": "https://envincebal.github.io/pomodoro-clock",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  }
+}
