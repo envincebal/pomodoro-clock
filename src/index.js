@@ -94,7 +94,7 @@
         chime.play();
         breakCountdown(setBreak.textContent, seconds.textContent);
       }
-    }, 100);
+    }, 1000);
   }
 
   // Break countdown
@@ -126,6 +126,6 @@
         chime.play();
         workCountdown(setWork.textContent, seconds.textContent);
       }
-    }, 100);
+    }, 1000);
   }
 })();
