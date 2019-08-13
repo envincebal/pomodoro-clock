@@ -69,7 +69,7 @@
   const workCountdown = (minute, second) => {
     let mins = minute;
     let secs = second;
-    const chime = document.querySelector(".audio");
+    const chime = document.querySelector(".break-audio");
 
     workTick = setInterval(function () {
       // When countdown begins the status changes
@@ -94,14 +94,14 @@
         chime.play();
         breakCountdown(setBreak.textContent, seconds.textContent);
       }
-    }, 500);
+    }, 100);
   }
 
   // Break countdown
   const breakCountdown = (minute, second) => {
     let mins = minute;
     let secs = second;
-    const chime = document.querySelector(".audio");
+    const chime = document.querySelector(".work-audio");
 
     breakTick = setInterval(function () {
       // When countdown begins the status changes
@@ -126,6 +126,6 @@
         chime.play();
         workCountdown(setWork.textContent, seconds.textContent);
       }
-    }, 500);
+    }, 100);
   }
 })();
