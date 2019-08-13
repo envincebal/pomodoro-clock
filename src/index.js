@@ -34,7 +34,7 @@
     }
   })
 
-  // Start button event listener
+  // Start button event listener.
   document.querySelector(".play-button").addEventListener("click", function () {
     // Starts or restart break or work countdown and changes isCounting status
     if (!isCounting && status.textContent === "Work") {
