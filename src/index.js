@@ -69,7 +69,7 @@
   const workCountdown = (minute, second) => {
     let mins = minute;
     let secs = second;
-    const chime = new Audio("http://www.wavlist.com/soundfx/014/cricket-1.wav");
+    const chime = document.querySelector(".audio");
 
     workTick = setInterval(function () {
       // When countdown begins the status changes
@@ -94,14 +94,14 @@
         chime.play();
         breakCountdown(setBreak.textContent, seconds.textContent);
       }
-    }, 1000);
+    }, 500);
   }
 
   // Break countdown
   const breakCountdown = (minute, second) => {
     let mins = minute;
     let secs = second;
-    const rooster = new Audio("http://www.wavlist.com/soundfx/009/rooster-2.wav");
+    const chime = document.querySelector(".audio");
 
     breakTick = setInterval(function () {
       // When countdown begins the status changes
@@ -123,9 +123,9 @@
       // Break alarm goes off and switches to work countdown
       if (minutes.textContent === "0" && seconds.textContent === "00") {
         clearInterval(breakTick);
-        rooster.play();
+        chime.play();
         workCountdown(setWork.textContent, seconds.textContent);
       }
-    }, 1000);
+    }, 500);
   }
 })();
